@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
+// Holds UI data
 class ContactViewModel (application: Application): AndroidViewModel(application) {
     //LiveData gives us updated contacts when they change
     var contactList : LiveData<List<Contact>>
@@ -17,7 +18,16 @@ class ContactViewModel (application: Application): AndroidViewModel(application)
         contactList = repository.allContacts
     }
 
-    fun addContact(contact: Contact) = viewModelScope.launch{
-         repository.add(contact)
+    // launch - calling coroutine - async task
+    fun insertContact(contact: Contact) = viewModelScope.launch{
+         repository.insert(contact)
+    }
+
+    fun deleteContact(contact: Contact) = viewModelScope.launch {
+        repository.delete(contact)
+    }
+
+    fun updateContact(contact: Contact) = viewModelScope.launch {
+        repository.update(contact)
     }
 }
